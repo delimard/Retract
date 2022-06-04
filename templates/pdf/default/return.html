@@ -1,0 +1,183 @@
+{*************************************************************************************/
+/*      This file is part of the Thelia package.                                     */
+/*                                                                                   */
+/*      Copyright (c) OpenStudio                                                     */
+/*      email : dev@thelia.net                                                       */
+/*      web : http://www.thelia.net                                                  */
+/*                                                                                   */
+/*      For the full copyright and license information, please view the LICENSE.txt  */
+/*      file that was distributed with this source code.                             */
+/*************************************************************************************}
+
+{* Set the default translation domain, that will be used by {intl} when the 'd' parameter is not set *}
+{default_translation_domain domain='pdf.default'}
+{literal}
+<style>
+    h1, h2, h3, h4 {
+        color:#f6993c;
+        margin: .5em 0;
+    }
+
+    h1 {
+        font-size: 48px;
+    }
+
+    h2 {
+        font-size: 16px;
+    }
+
+    h3 {
+        font-size: 14px;
+    }
+
+    h4 {
+        color:#58585a;
+        font-size: 12px;
+    }
+
+    p, td {
+        color:#58585a;
+        font-size: 9px;
+    }
+
+    p {
+        margin: .5em 0;
+    }
+
+    span {
+        font-size: 9px;
+    }
+
+    table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    tr {
+        width: 100%;
+    }
+
+    td {
+        vertical-align: top;
+    }
+
+    .table-info h3 {
+        font-size: 18px;
+        color: #58585a;
+        margin-top: 0;
+        margin-bottom: 15px;
+    }
+
+    .table-info h3 span {
+        font-size: 18px;
+        color: #f6993c;
+    }
+
+    .table-1 td {
+        background: #f1f3f4;
+        border:solid 1px #bcbdc0;
+    }
+
+    .table-2 td {
+        border:solid 1px #bcbdc0;
+    }
+
+
+    .table-3-1, .table-3-2 {
+        border: solid 1px #bcbdc0;
+    }
+    .table-3-1 p {
+        font-size: 10px;
+    }
+    .table-3-2 p {
+        font-size: 9px;
+        color: #747475;
+    }
+
+    .table-3-module h3 {
+        margin-top: 1.5em;
+    }
+
+    .table-3-module span {
+        font-size: 11px;
+    }
+
+    .align-left {
+        text-align: left;
+    }
+    .align-center {
+        text-align: center;
+    }
+    .align-right{
+        text-align: right;
+    }
+
+    .clear {
+        padding: 0.5%;
+        border-bottom:solid 1px #dddddd;
+    }
+
+    .clear-none {
+        padding: 0.5%;
+    }
+	
+	{hook name="invoice.css"}
+
+</style>
+{/literal}
+<page backtop="10mm" backleft="10mm" backright="10mm" backbottom="10mm">
+    <page_header>
+    </page_header>
+
+    <page_footer>
+    </page_footer>
+
+    {loop name="order-invoice" type="order" id=$order_id }
+    <table class="table-info">
+        <col style="width: 100%; padding: 0mm;" />
+        <tr>
+            <td><h1>Formulaire de retour</h1></td>
+        </tr>
+        <tr>
+            <td>
+                <p>(Veuillez compléter et renvoyer le présent formulaire uniquement si vous souhaitez vous rétracter du contrat.)</p>
+
+                <p>A l'attention de 
+						<!-- Imprint -->
+
+					 :</p>
+
+                    <p>Je vous notifie par la présente ma rétractation du contrat portant sur la vente des biens ci-dessous :</p>
+                        <table cellspacing="0" cellpadding="0" style="padding-top: 5mm;">
+                            <col style="width: 70%; padding: 1mm;" />
+                            <col style="width: 30%; padding: 1mm;" />
+                            <tr class="table-1">
+                                <td><h4>{intl l="Product"}</h4></td>
+                                <td><h4 class="align-center">{intl l="Quantity"}</h4></td>
+                            </tr>
+                            {loop type="order_product" name="order-products" order=$ID}
+                              <tr class="table-2">
+                                    <td><p>{$REF} - {$TITLE}</p></td>
+                                    <td><p class="align-center">{$QUANTITY}</p></td>
+                              </tr>
+                            {/loop}
+                        </table>
+                    <p>Commandé le /reçu le : {format_date date=$INVOICE_DATE output="date"} /</p>
+                    <p>N° commande : {$REF}</p>
+                    {loop type="customer" name="order-customer" id=$CUSTOMER}
+                    <p>N° client: {$REF}</p>
+                    <p>Nom du (des) consommateur(s) :</p>
+                    <p>Adresse du (des) consommateur(s) :</p>
+
+                    <p>Signature du (des) consommateur(s) (uniquement en cas de notification du présent formulaire sur papier) :</p>
+
+                    <p>Date :</p>
+
+                    {/loop}
+            
+            </td>
+        </tr>
+        
+    </table>
+    {/loop}
+</page>
