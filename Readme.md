@@ -12,18 +12,18 @@ Sommaire
 Module thelia pour generer un PDF de retractation client.
 
  
-### Installation
+Installation
+-------
+### Manuelle
 
-#### Manuelle
-
-* Copiez le module dans le dossier ```<thelia_root>/local/modules/```  et assurez-vous que le nom du module est bien Crossselling.
+* Copiez le module dans le dossier ```<thelia_root>/local/modules/```  et assurez-vous que le nom du module est bien Retract.
 * Activez le depuis votre interface d'administration Thelia.
 
 
 ### Utilisation et Intégration
 A ajouter sur la page "account-order" de votre template
 ```
-<a href="{url path="/account/order/pdf/return/%id" id=$ID}">{intl l="Download"}</a>
+<a href="{url path="/account/order/pdf/return/%id" id=$ID}">{intl l="Formulaire de retractation"}</a>
 
 ```
 
